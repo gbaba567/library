@@ -1,0 +1,71 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.gb.*" />
+    <import resource="db-h2-config.xml"/>
+    
+    <mvc:annotation-driven />
+        
+        <bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+            <property name="prefix">
+                <value>/WEB-INF/pages/</value>
+            </property>
+            <property name="suffix">
+                <value>.jsp</value>
+            </property>
+        </bean>
+        
+<!--        <bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer"
+              init-method="start" destroy-method="stop">
+            <constructor-arg value="-web,-webAllowOthers,-webDaemon,-webPort,8082" />
+        </bean>-->
+        <mvc:resources mapping="/resources/**" location="/resources/"  cache-period="31556926"/>
+    
+        <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+            <property name="dataSource" ref="dbcpDataSource"></property>
+            <property name="annotatedClasses">
+                <list>
+                    <value>com.gb.web.model.User</value>
+                    <value>com.gb.web.model.Book</value>
+                </list>
+            </property>
+            <property name="hibernateProperties">
+                <props>
+                    <prop 
+                        key="hibernate.dialect"> org.hibernate.dialect.H2Dialect</prop>
+                    <prop key="hibernate.show_sql">false</prop>
+                    <prop key="format_sql">false</prop>
+                    <prop key="use_sql_comments">false</prop>
+                </props>
+            </property>
+        </bean>
+  
+        <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" 
+              p:sessionFactory-ref="sessionFactory">
+        </bean>
+    
+        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" >
+            <constructor-arg ref="dbcpDataSource" />
+        </bean>
+  
+        <bean id="dbcpDataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+              destroy-method="close">
+            <property name="driverClassName" value="org.h2.Driver" />
+            <property name="url" value="jdbc:h2:mem:dataSource;database_to_upper=false" />
+            <property name="username" value="sa" />
+            <property name="password" value="" />
+        </bean>
+
+	
+</beans>
