@@ -9,6 +9,7 @@ Run below command to run and deploy build on jetty server.
 
 The command will compile the code and start jetty server within 1 or 2 minutes.
 If you see below lines in the command prompt you are good to go.
+
 ``[INFO] Started Jetty Server
 [INFO] Starting scanner at interval of 1 seconds.``
 
