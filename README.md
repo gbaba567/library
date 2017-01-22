@@ -2,6 +2,7 @@
 The project provides simple view library pages. The database layer contains H2 as a database and Hibernate as an ORM to Spring.
 ### How to run
 Clone this project and go to the project folder in command prompt.
+First you have to build the project.Execute command ``mvn clean install`` to build.
 Run below command.(Note : You must have setup Maven in your comouter to be able to run this command)
 `` mvn jetty:run``
 
