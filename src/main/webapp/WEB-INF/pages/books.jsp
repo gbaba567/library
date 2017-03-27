@@ -1,7 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- my first change to the git project-->
     <%@include file="headers.jsp" %>
     <body>
         <%@include file="navigation.jsp" %>
