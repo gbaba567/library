@@ -4,6 +4,7 @@
 <!-- my first change to the git project-->
     <%@include file="headers.jsp" %>
     <body>
+        <!-- change 2-->
         <%@include file="navigation.jsp" %>
         <div class="container">
             <div class="row" >
